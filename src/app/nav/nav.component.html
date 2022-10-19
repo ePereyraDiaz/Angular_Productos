@@ -1,0 +1,50 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar style="color: white;"> Versión 1.0.0</mat-toolbar>
+    <mat-nav-list>
+      <a class="txt-option " mat-list-item routerLink="/inicio/home" routerLinkActive="active">
+        <mat-icon class="icon-nav" fontIcon="dashboard"></mat-icon>
+        Inicio
+      </a>
+      <a class="txt-option" mat-list-item  routerLink="/inicio/productos" routerLinkActive="active">
+        <mat-icon class="icon-nav" fontIcon="assignment_ind"></mat-icon>
+        Juguetes
+      </a>
+      <a class="txt-option" mat-list-item  routerLink="/inicio/FoodTruck" routerLinkActive="active">
+        <mat-icon class="icon-nav" fontIcon="assignment_ind"></mat-icon>
+        Food Truck
+      </a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+      <mat-toolbar >
+        <button
+          class="btn"
+          type="button"
+          aria-label="Toggle sidenav"
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon style="color: white;"aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <div>
+          <h4 style="color: white;">Productos</h4>
+        </div>
+        <span class="example-spacer"></span>
+
+      <div class="user-name">
+        <p style="color: white;">{{getNombre()}}</p>
+      </div>
+
+      <a class="pointer" (click)="logout()" style="margin-top: 11px; margin-left: 25px; color: rgb(243 220 220); font-weight: 400;">
+        <mat-icon class="icon-nav" style="color: rgb(243 220 220);" fontIcon="power_settings_new"></mat-icon>
+      </a>
+      
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

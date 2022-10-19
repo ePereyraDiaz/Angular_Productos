@@ -1,0 +1,92 @@
+<div class="row justify-content-center align-items-center body">
+    <div id="SpinnerLoading" class="Loading hidden" [hidden]="!SpinnerLoading">
+      <img alt="Cargando..."
+        src="https://raw.githubusercontent.com/Codelessly/FlutterLoadingGIFs/master/packages/cupertino_activity_indicator_square_medium.gif"
+        class="LoadingImage" />
+    </div>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" style="cursor: pointer;" aria-current="page" [routerLink]="['../']">INICIO</li>
+      <li class="breadcrumb-item active" aria-current="page">FOODTRUCK</li>
+    </ol>
+    <div [hidden]="SpinnerLoading">
+      <div style="width: 95%; position: absolute; margin-left: 2%;" class="justify-content-center">
+        <div class="d-flex justify-content-center ">
+          <h3><strong>FOOD TRUCK</strong></h3>
+        </div>
+        <div class="card-body col-12 text-center justify-content-center">
+            <form [formGroup]="formFecha" (ngSubmit)="consultaFoodTruck()" novalidate>
+              <div class="modal-body" style="background-color: #EEEEEE;">
+                <div class="row">
+                  <div class="col-md-12 d-flex justify-content-around">
+                    <mat-form-field>
+                      <mat-label>Día</mat-label>
+                      <mat-select panelClass="selectpanel" formControlName="dia" required
+                        (selectionChange)="selectDay($event)">
+                        <mat-option *ngFor="let dia of Dias" [value]="dia.id">{{dia.nombre}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="formFecha.controls['dia'].invalid">
+                        Campo obligatorio
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                      <mat-label>Hora</mat-label>
+                      <input required matInput mdc-datetime-picker="" date="true" time="true" type="time" id="datetime" formControlName="hora"
+                      placeholder="Hora" show-todays-date="" name="hora" minutes="true" show-icon="true"
+                      ng-model="dateTime" [(ngModel)]="HoraSeleccion" class="dtp-no-msclear dtp-input md-input">
+                      <mat-error *ngIf="formFecha.controls['hora'].invalid">
+                        Campo obligatorio
+                      </mat-error>
+                    </mat-form-field>
+
+                    <div class="" style="background-color: #EEEEEE;">
+                      <button type="submit"[ngClass]="{'btnAceptar': this.formFecha.valid, 'btnInhabil': !this.formFecha.valid}" 
+                      [disabled]="!this.formFecha.valid">Consultar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          <div style="background: #ffedef !important; margin-bottom: -2px;  overflow-x: revert;">
+            <div class="row mx-0 px-0 " style="background: #ffedef;">
+              <div class="filtros mx-0 px-0 " style="background: #ffedef;">
+                <mat-form-field appearance="fill">
+                  <mat-label> Busqueda general registros</mat-label>
+                  <mat-icon matPrefix>search</mat-icon>
+                  <input placeholder="" matInput type="text" (keyup)="applyFilter($event.target)" />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="tabla table-striped table-responsives col-sm-12 shadow-lg rounded border bg-white ">
+            <mat-table [dataSource]="dataSource"
+              class="table table-striped smart-table-container table-sm col-sm-12 text-center ">
+              <ng-container matColumnDef="applicant">
+                <mat-header-cell class="table-danger" *matHeaderCellDef> NOMBRE </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.applicant | uppercase}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="location">
+                <mat-header-cell class="table-danger" *matHeaderCellDef> DIRECCIÒN </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.location}} </mat-cell>
+              </ng-container>
+              <tr class="mat-row " *matNoDataRow>
+                <td class="mat-cell">
+                  NO SE ENCONTRÓ INFORMACIÓN
+                </td>
+              </tr>
+  
+              <mat-header-row class="mat-header-sticky" *matHeaderRowDef="colDetalles; sticky: true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: colDetalles;" matRipple [ngClass]="{'selected': row === rowProducto}"
+                class="text-center">
+              </mat-row>
+            </mat-table>
+          </div>
+          <mat-paginator class="mat-paginator-sticky" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons>
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+  

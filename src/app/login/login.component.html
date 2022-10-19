@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="">
+    <div class=" log">
+      <div class="card">
+        <div class="card-header text-center">
+          <!-- <p  class="txt-inicion">Inicio de sesión</p> -->
+          <h1 style="margin-top: revert;"> Login Juguetes</h1>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 text-center">
+              <!-- <img src="../../../assets/img/logo-principal.png" width="95px" alt=""><br> -->
+              <br>
+              <form [formGroup]="formUser" novalidate>
+                <mat-form-field appearance="fill" class="col-12">
+                  <mat-label>CORREO USUARIO</mat-label>
+                  <input matInput type="text" [(ngModel)]="CorreoUsuario" formControlName="usuario" />
+                  <mat-error *ngIf="formUser.controls['usuario'].invalid">
+                    *Campo obligatorio
+                  </mat-error>
+                </mat-form-field>
+                <div class="col-12 d-flex justify-content-center">
+                  <div>
+                    <p>Escribir cualquier texto, sección solo para demostrar el uso de JWT <br> Angular envia el Token y
+                      tiene tiempo limite de 12 horas.</p>
+                  </div>
+                </div>
+                <button class="btn btnLogin" type="button" (click)="login()" [disabled]="disabled">
+                  <span *ngIf="disabled" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+                  Iniciar Sesión
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="etiquetaCelda">Versión 1.0.0</div>
+        </div>
+      </div>
+    </div>
+  </div>
